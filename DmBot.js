@@ -1,4 +1,4 @@
-const { Client, Intents } = require('discord.js');
+const { Client, Intents, MessageEmbed } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGES] });
 
 client.on('ready', () => {
@@ -22,7 +22,10 @@ client.on('interactionCreate', async interaction => {
     await member.send(`${recipientMentions}${interaction.user.username} sent: ${messageContent}`);
   });
 
-  await interaction.reply('Message sent!');
+  const replyEmbed = new MessageEmbed()
+    .setColor('GREEN')
+    .setDescription(`Message sent!`);
+  await interaction.reply({ embeds: [replyEmbed] });
 });
 
 client.login('your-bot-token');
